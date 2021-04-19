@@ -14,6 +14,11 @@
 		E5441D8C262E3EA8008DB810 /* AlterColor.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E5441D8A262E3EA8008DB810 /* AlterColor.xcdatamodeld */; };
 		E5441D8E262E3EAA008DB810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5441D8D262E3EAA008DB810 /* Assets.xcassets */; };
 		E5441D91262E3EAA008DB810 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5441D8F262E3EAA008DB810 /* LaunchScreen.storyboard */; };
+		E5F72930262E47D9007783FD /* PickPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7292F262E47D9007783FD /* PickPhotoViewController.swift */; };
+		E5F72933262E47F7007783FD /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F72932262E47F7007783FD /* EditPhotoViewController.swift */; };
+		E5F72936262E4883007783FD /* ViewAllTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F72935262E4883007783FD /* ViewAllTableViewController.swift */; };
+		E5F72939262E494C007783FD /* ViewAllTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F72938262E494C007783FD /* ViewAllTableViewCell.swift */; };
+		E5F7293E262E4B83007783FD /* ColorDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7293D262E4B83007783FD /* ColorDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		E5441D8D262E3EAA008DB810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5441D90262E3EAA008DB810 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5441D92262E3EAA008DB810 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5F7292F262E47D9007783FD /* PickPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPhotoViewController.swift; sourceTree = "<group>"; };
+		E5F72932262E47F7007783FD /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
+		E5F72935262E4883007783FD /* ViewAllTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAllTableViewController.swift; sourceTree = "<group>"; };
+		E5F72938262E494C007783FD /* ViewAllTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAllTableViewCell.swift; sourceTree = "<group>"; };
+		E5F7293D262E4B83007783FD /* ColorDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +72,11 @@
 				E5441D83262E3EA8008DB810 /* SceneDelegate.swift */,
 				E5441D85262E3EA8008DB810 /* ViewController.swift */,
 				E5441D87262E3EA8008DB810 /* Main.storyboard */,
+				E5F7293D262E4B83007783FD /* ColorDataModel.swift */,
+				E5F72938262E494C007783FD /* ViewAllTableViewCell.swift */,
+				E5F7292F262E47D9007783FD /* PickPhotoViewController.swift */,
+				E5F72932262E47F7007783FD /* EditPhotoViewController.swift */,
+				E5F72935262E4883007783FD /* ViewAllTableViewController.swift */,
 				E5441D8D262E3EAA008DB810 /* Assets.xcassets */,
 				E5441D8F262E3EAA008DB810 /* LaunchScreen.storyboard */,
 				E5441D92262E3EAA008DB810 /* Info.plist */,
@@ -140,9 +155,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5F72930262E47D9007783FD /* PickPhotoViewController.swift in Sources */,
+				E5F72939262E494C007783FD /* ViewAllTableViewCell.swift in Sources */,
+				E5F72936262E4883007783FD /* ViewAllTableViewController.swift in Sources */,
+				E5F72933262E47F7007783FD /* EditPhotoViewController.swift in Sources */,
 				E5441D86262E3EA8008DB810 /* ViewController.swift in Sources */,
 				E5441D82262E3EA8008DB810 /* AppDelegate.swift in Sources */,
 				E5441D8C262E3EA8008DB810 /* AlterColor.xcdatamodeld in Sources */,
+				E5F7293E262E4B83007783FD /* ColorDataModel.swift in Sources */,
 				E5441D84262E3EA8008DB810 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
