@@ -14,16 +14,19 @@ class EditPhotoViewController: UIViewController {
     @IBOutlet weak var SaveButton: UIButton!
     @IBOutlet weak var BackButton: UIButton!
     @IBOutlet weak var Slider: UISlider!
-    
+    @IBOutlet weak var EditLabel: UILabel!
     
     @IBAction func HueButtonPressed(_ sender: Any) {
         showSlider()
+        EditLabel.text = "Hue"
     }
     @IBAction func BrightnessButtonPressed(_ sender: Any) {
         showSlider()
+        EditLabel.text = "Brightness"
     }
     @IBAction func ContrastButtonPressed(_ sender: Any) {
         showSlider()
+        EditLabel.text = "Contrast"
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
     }
@@ -43,6 +46,7 @@ class EditPhotoViewController: UIViewController {
     func slidersAreHidden(hidden:Bool){
         BackButton.isHidden = hidden
         Slider.isHidden = hidden
+        EditLabel.isHidden = hidden
     }
     func showButtons(){
         buttonsAreHidden(hidden: false)

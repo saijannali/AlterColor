@@ -67,6 +67,13 @@
                                     <action selector="SliderSlid:" destination="BYZ-38-t0r" eventType="valueChanged" id="q4f-ws-Zxr"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="EditLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQB-cO-xO3">
+                                <rect key="frame" x="18" y="542" width="134" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -76,6 +83,7 @@
                         <outlet property="BackButton" destination="rE3-gT-8PZ" id="k6k-Yq-ikj"/>
                         <outlet property="BrightnessButton" destination="B5H-Zn-qwO" id="t15-Ye-umv"/>
                         <outlet property="ContrastButton" destination="2LC-3Z-O7E" id="Ohq-hZ-Q3J"/>
+                        <outlet property="EditLabel" destination="XQB-cO-xO3" id="MTO-Vs-KQk"/>
                         <outlet property="HueButton" destination="ZvH-tU-fe0" id="k0O-qn-RbD"/>
                         <outlet property="SaveButton" destination="Ve3-4Z-r8Q" id="iUe-2B-Bbb"/>
                         <outlet property="Slider" destination="GXA-j7-gdt" id="Lm0-Xd-UBK"/>
