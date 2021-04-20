@@ -12,32 +12,53 @@ class EditPhotoViewController: UIViewController {
     @IBOutlet weak var BrightnessButton: UIButton!
     @IBOutlet weak var ContrastButton: UIButton!
     @IBOutlet weak var SaveButton: UIButton!
-    @IBOutlet weak var BackButton: UISlider!
+    @IBOutlet weak var BackButton: UIButton!
     @IBOutlet weak var Slider: UISlider!
     
     
     @IBAction func HueButtonPressed(_ sender: Any) {
+        showSlider()
     }
-    
-    
     @IBAction func BrightnessButtonPressed(_ sender: Any) {
+        showSlider()
     }
     @IBAction func ContrastButtonPressed(_ sender: Any) {
+        showSlider()
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
     }
     @IBAction func BackButtonPressed(_ sender: Any) {
+        showButtons()
     }
     @IBAction func SliderSlid(_ sender: Any) {
+        
     }
     
-    
+    func buttonsAreHidden(hidden:Bool){
+        HueButton.isHidden = hidden
+        BrightnessButton.isHidden = hidden
+        ContrastButton.isHidden = hidden
+        SaveButton.isHidden = hidden
+    }
+    func slidersAreHidden(hidden:Bool){
+        BackButton.isHidden = hidden
+        Slider.isHidden = hidden
+    }
+    func showButtons(){
+        buttonsAreHidden(hidden: false)
+        slidersAreHidden(hidden: true)
+    }
+    func showSlider(){
+        buttonsAreHidden(hidden: true)
+        slidersAreHidden(hidden: false)
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        showButtons()
     }
     
 

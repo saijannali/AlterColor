@@ -73,7 +73,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="9tS-7N-qK5"/>
                     <connections>
-                        <outlet property="BackButton" destination="GXA-j7-gdt" id="0za-Y5-odZ"/>
+                        <outlet property="BackButton" destination="rE3-gT-8PZ" id="k6k-Yq-ikj"/>
                         <outlet property="BrightnessButton" destination="B5H-Zn-qwO" id="t15-Ye-umv"/>
                         <outlet property="ContrastButton" destination="2LC-3Z-O7E" id="Ohq-hZ-Q3J"/>
                         <outlet property="HueButton" destination="ZvH-tU-fe0" id="k0O-qn-RbD"/>
@@ -147,6 +147,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Dh0-lt-fGh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JFb-WD-u6c">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
