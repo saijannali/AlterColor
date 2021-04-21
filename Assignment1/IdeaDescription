@@ -1,0 +1,24 @@
+App Description
+
+Serena Press - sapress@iu.edu
+Sai Jannali - sjannali@iu.edu
+Aidan Lesh - ailesh@iu.edu
+
+Our app will enable its users to edit photos from their camera rolls.
+
+First they will choose their desired photo - they will be given the option to choose from their camera 
+roll or take a new photo. If they choose to browse existing photos they will, the first time, need 
+to give the app permission to view photos. If taking a new photo, they will have to allow the app
+to access the camera.
+
+They will then be able to edit the photos by adjusting the photo's hue and its brightness/ contrast. 
+These can be adjusted by choosing one of the three buttons 'hue', 'brightness', or 'contrast'
+Each will pop up a slider allowing the user to adjust the properties on a sliding scale.
+
+Once satisfied with their photo they will be able to click the 'save' button.
+
+The photo will then be saved to their camera roll and a pointer to the photo (in the camera roll) will 
+be saved in a table view/ the app's persistent storage.
+
+Our app will use UIImagePickerController and Accelerate.
+
