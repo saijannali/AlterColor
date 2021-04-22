@@ -7,8 +7,12 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class ViewAllTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var thumbnail : UIImageView!
+    @IBOutlet weak var filenameLabel : UILabel!
+    @IBOutlet weak var dateModifiedLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

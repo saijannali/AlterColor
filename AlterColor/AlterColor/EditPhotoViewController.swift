@@ -8,6 +8,10 @@
 import UIKit
 
 class EditPhotoViewController: UIViewController {
+    var appDelegate: AppDelegate!
+    var theDataModel:ColorDataModel!
+    var theSavedData:SavedData!
+    
     @IBOutlet weak var HueButton: UIButton!
     @IBOutlet weak var BrightnessButton: UIButton!
     @IBOutlet weak var ContrastButton: UIButton!
@@ -16,7 +20,7 @@ class EditPhotoViewController: UIViewController {
     @IBOutlet weak var Slider: UISlider!
     @IBOutlet weak var EditLabel: UILabel!
     
-    @IBOutlet var imageToEdit: UIView!
+    @IBOutlet var imageToEdit: UIImageView!
     
     @IBAction func HueButtonPressed(_ sender: Any) {
         showSlider()
@@ -31,6 +35,12 @@ class EditPhotoViewController: UIViewController {
         EditLabel.text = "Contrast"
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
+        let filename = "bingus"
+        let date = "march 10"
+        theSavedData.save(img:theDataModel.getCurrent()!, file:filename, when:date)
+        if let thetable = navigationController?.children[2]{
+            navigationController?.show(thetable, sender: self)
+        }
     }
     @IBAction func BackButtonPressed(_ sender: Any) {
         showButtons()
@@ -65,6 +75,16 @@ class EditPhotoViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         showButtons()
+        self.appDelegate = UIApplication.shared.delegate as? AppDelegate
+        self.theDataModel = self.appDelegate.allData
+        self.theSavedData = self.appDelegate.savedData
+        
+        print("\(self.theDataModel.originalImage)")
+        imageToEdit.image = theDataModel.getCurrent()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        imageToEdit.image = theDataModel.getCurrent()
     }
     
 

@@ -7,11 +7,19 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class ViewAllTableViewController: UITableViewController {
+    
+    var appDelegate: AppDelegate!
+    var theDataModel:ColorDataModel!
+    var theSavedData:SavedData!
+    var controller : ViewAllTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.appDelegate = UIApplication.shared.delegate as? AppDelegate
+        self.theDataModel = self.appDelegate.allData
+        self.theSavedData = self.appDelegate.savedData
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -23,23 +31,33 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        print(theSavedData.images.count)
+        return theSavedData.images.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mycell", for: indexPath) as! ViewAllTableViewCell
 
+        let row = indexPath.row
         // Configure the cell...
+        cell.backgroundColor = UIColor.green
+        cell.thumbnail.image = theSavedData.images[row].image
+        cell.filenameLabel.text = theSavedData.images[row].filename
+        cell.dateModifiedLabel.text = theSavedData.images[row].dateModified
+        self.tableView.rowHeight = 167.0
 
         return cell
     }
-    */
+    
+    override func viewDidAppear(_ animated: Bool) {
+        (view as! UITableView).reloadData()
+    }
 
     /*
     // Override to support conditional editing of the table view.

@@ -11,7 +11,8 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var allData: ColorDataModel = ColorDataModel(loadData:0)
+    var allData: ColorDataModel = ColorDataModel(image:nil)
+    var savedData: SavedData = SavedData(data:[])
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
