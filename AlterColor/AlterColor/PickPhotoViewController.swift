@@ -8,6 +8,8 @@
 import UIKit
 
 class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    var appDelegate: AppDelegate!
+    var theDataModel:ColorDataModel!
 
     @IBOutlet weak var imageView: UIImageView!
     let imagePicker = UIImagePickerController()
@@ -39,6 +41,7 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.contentMode = .scaleAspectFit
             imageView.image = pickedImage
+            self.theDataModel.originalImage = pickedImage
         }
 
         dismiss(animated: true, completion: nil)
@@ -50,6 +53,8 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         // Do any additional setup after loading the view.
         imageView.backgroundColor = .red
         imagePicker.delegate = self
+        self.appDelegate = UIApplication.shared.delegate as? AppDelegate
+        self.theDataModel = self.appDelegate.allData
     }
     
 

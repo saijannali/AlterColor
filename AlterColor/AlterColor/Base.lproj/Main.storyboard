@@ -87,7 +87,7 @@
                         <outlet property="HueButton" destination="ZvH-tU-fe0" id="k0O-qn-RbD"/>
                         <outlet property="SaveButton" destination="Ve3-4Z-r8Q" id="iUe-2B-Bbb"/>
                         <outlet property="Slider" destination="GXA-j7-gdt" id="Lm0-Xd-UBK"/>
-                        <outlet property="imageToEdit" destination="8bC-Xf-vdC" id="yIM-ZU-mls"/>
+                        <outlet property="imageToEdit" destination="cX8-JC-QJb" id="XRC-ce-42I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

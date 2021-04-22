@@ -8,6 +8,9 @@
 import UIKit
 
 class EditPhotoViewController: UIViewController {
+    var appDelegate: AppDelegate!
+    var theDataModel:ColorDataModel!
+    
     @IBOutlet weak var HueButton: UIButton!
     @IBOutlet weak var BrightnessButton: UIButton!
     @IBOutlet weak var ContrastButton: UIButton!
@@ -16,7 +19,7 @@ class EditPhotoViewController: UIViewController {
     @IBOutlet weak var Slider: UISlider!
     @IBOutlet weak var EditLabel: UILabel!
     
-    @IBOutlet var imageToEdit: UIView!
+    @IBOutlet var imageToEdit: UIImageView!
     
     @IBAction func HueButtonPressed(_ sender: Any) {
         showSlider()
@@ -65,6 +68,12 @@ class EditPhotoViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         showButtons()
+        self.appDelegate = UIApplication.shared.delegate as? AppDelegate
+        self.theDataModel = self.appDelegate.allData
+        
+        print("\(self.theDataModel.originalImage)")
+        print("\(imageToEdit.image)")
+        imageToEdit.image = theDataModel.originalImage
     }
     
 

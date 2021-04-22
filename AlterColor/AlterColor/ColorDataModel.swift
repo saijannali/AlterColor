@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 
-class ColorDataModel: NSObject, Codable{
+class ColorDataModel{
     
     // constant values for edit modes, part of class itself not instances
     static let EDIT_MODE_NONE = 0
@@ -18,14 +19,12 @@ class ColorDataModel: NSObject, Codable{
     
     // which aspect we're editing
     var editMode: Int
+    var originalImage : UIImage? = nil
     
-    // this is an int for now, replace with actual stuff later
-    var storedData: Int
     
-    init(loadData:Int){
+    init(image:UIImage?){
         self.editMode = ColorDataModel.EDIT_MODE_NONE
-        self.storedData = loadData // this line is just to make it codable, replace it
-        super.init()
+        self.originalImage = image
     }
     
 }
