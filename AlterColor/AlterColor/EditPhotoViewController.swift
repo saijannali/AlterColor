@@ -16,6 +16,8 @@ class EditPhotoViewController: UIViewController {
     @IBOutlet weak var Slider: UISlider!
     @IBOutlet weak var EditLabel: UILabel!
     
+    @IBOutlet var imageToEdit: UIView!
+    
     @IBAction func HueButtonPressed(_ sender: Any) {
         showSlider()
         EditLabel.text = "Hue"
