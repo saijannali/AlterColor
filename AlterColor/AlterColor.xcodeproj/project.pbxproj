@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004A181626321B3F0048B819 /* SavedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A181526321B3F0048B819 /* SavedData.swift */; };
 		E5441D82262E3EA8008DB810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5441D81262E3EA8008DB810 /* AppDelegate.swift */; };
 		E5441D84262E3EA8008DB810 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5441D83262E3EA8008DB810 /* SceneDelegate.swift */; };
 		E5441D86262E3EA8008DB810 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5441D85262E3EA8008DB810 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		004A181526321B3F0048B819 /* SavedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedData.swift; sourceTree = "<group>"; };
 		E5441D7E262E3EA8008DB810 /* AlterColor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlterColor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5441D81262E3EA8008DB810 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5441D83262E3EA8008DB810 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				E5F72938262E494C007783FD /* ViewAllTableViewCell.swift */,
 				E5F7292F262E47D9007783FD /* PickPhotoViewController.swift */,
 				E5F72932262E47F7007783FD /* EditPhotoViewController.swift */,
+				004A181526321B3F0048B819 /* SavedData.swift */,
 				E5F72935262E4883007783FD /* ViewAllTableViewController.swift */,
 				E5441D8D262E3EAA008DB810 /* Assets.xcassets */,
 				E5441D8F262E3EAA008DB810 /* LaunchScreen.storyboard */,
@@ -164,6 +167,7 @@
 				E5441D8C262E3EA8008DB810 /* AlterColor.xcdatamodeld in Sources */,
 				E5F7293E262E4B83007783FD /* ColorDataModel.swift in Sources */,
 				E5441D84262E3EA8008DB810 /* SceneDelegate.swift in Sources */,
+				004A181626321B3F0048B819 /* SavedData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

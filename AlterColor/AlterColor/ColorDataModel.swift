@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Accelerate
 
 
 class ColorDataModel{
@@ -21,6 +22,10 @@ class ColorDataModel{
     var editMode: Int
     var originalImage : UIImage? = nil
     var currentImage : UIImage? = nil
+    var originalCG : CGImage? = nil
+    var format : vImage_CGImageFormat? = nil
+    
+    //var imageFormat = vImage_CGImageFormat(
     
     init(image:UIImage?){
         self.editMode = ColorDataModel.EDIT_MODE_NONE
@@ -30,10 +35,18 @@ class ColorDataModel{
     func loadImage(image:UIImage?){
         self.originalImage = image?.copy() as! UIImage?
         self.currentImage = image?.copy() as! UIImage?
+        self.originalCG = originalImage?.cgImage
+        if (originalCG != nil){
+            self.format = vImage_CGImageFormat(cgImage: self.originalCG!)
+        }
     }
     
     func getCurrent() -> UIImage? {
         return self.currentImage
+    }
+    
+    func adjustHue(amount: Double){
+        
     }
     
 }
