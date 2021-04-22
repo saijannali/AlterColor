@@ -20,11 +20,20 @@ class ColorDataModel{
     // which aspect we're editing
     var editMode: Int
     var originalImage : UIImage? = nil
-    
+    var currentImage : UIImage? = nil
     
     init(image:UIImage?){
         self.editMode = ColorDataModel.EDIT_MODE_NONE
         self.originalImage = image
+    }
+    
+    func loadImage(image:UIImage?){
+        self.originalImage = image?.copy() as! UIImage?
+        self.currentImage = image?.copy() as! UIImage?
+    }
+    
+    func getCurrent() -> UIImage? {
+        return self.currentImage
     }
     
 }

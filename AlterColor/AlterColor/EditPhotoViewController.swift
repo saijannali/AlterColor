@@ -72,8 +72,7 @@ class EditPhotoViewController: UIViewController {
         self.theDataModel = self.appDelegate.allData
         
         print("\(self.theDataModel.originalImage)")
-        print("\(imageToEdit.image)")
-        imageToEdit.image = theDataModel.originalImage
+        imageToEdit.image = theDataModel.getCurrent()
     }
     
 

@@ -41,7 +41,7 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.contentMode = .scaleAspectFit
             imageView.image = pickedImage
-            self.theDataModel.originalImage = pickedImage
+            self.theDataModel.loadImage(image: pickedImage)
         }
 
         dismiss(animated: true, completion: nil)
