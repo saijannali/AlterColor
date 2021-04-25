@@ -46,7 +46,7 @@ class EditPhotoViewController: UIViewController {
         showButtons()
     }
     @IBAction func SliderSlid(_ sender: Any) {
-        
+        theDataModel.adjustCurrent(value: Slider.value)
     }
     
     func buttonsAreHidden(hidden:Bool){
