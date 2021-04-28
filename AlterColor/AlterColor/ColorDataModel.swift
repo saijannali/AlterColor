@@ -25,15 +25,42 @@ class ColorDataModel{
     var currentImage : UIImage? = nil
     var originalCG : CGImage? = nil
     var currentCG : CGImage? = nil
-    var format : vImage_CGImageFormat? = nil
+    var format : vImage_CGImageFormat? = vImage_CGImageFormat(
+        bitsPerComponent: 8,
+        bitsPerPixel: 8 * 3,
+        colorSpace: CGColorSpaceCreateDeviceRGB(),
+        bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+        renderingIntent: .defaultIntent)!
+    var labFormat : vImage_CGImageFormat? = vImage_CGImageFormat(
+        bitsPerComponent: 8,
+        bitsPerPixel: 8 * 3,
+        colorSpace: CGColorSpace(name: CGColorSpace.genericLab)!,
+        bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+        renderingIntent: .defaultIntent)!
     var originalImageBuffer : vImage_Buffer? = nil
     var currentImageBuffer : vImage_Buffer? = nil
+    let RGBtoLab : vImageConverter
+    let LabtoRGB : vImageConverter
+    
+    var currentBrightness : Float = 0.0
+    var currentContrast : Float = 1.0
+    var currentHue = 0.0
     
     //var imageFormat = vImage_CGImageFormat(
     
     init(image:UIImage?){
         self.editMode = ColorDataModel.EDIT_MODE_NONE
         self.originalImage = image
+        do {
+            self.RGBtoLab = try vImageConverter.make(sourceFormat: self.format!, destinationFormat: self.labFormat!)
+            self.LabtoRGB = try vImageConverter.make(sourceFormat: self.labFormat!, destinationFormat: self.format!)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+        defer {
+            currentImageBuffer?.free()
+            originalImageBuffer?.free()
+        }
     }
     
     func loadImage(image:UIImage?){
@@ -42,12 +69,6 @@ class ColorDataModel{
         self.originalCG = originalImage?.cgImage
         if (originalCG != nil){
             //self.format = vImage_CGImageFormat(cgImage: self.originalCG!)
-            self.format = vImage_CGImageFormat(
-                bitsPerComponent: 8,
-                bitsPerPixel: 8 * 3,
-                colorSpace: CGColorSpaceCreateDeviceRGB(),
-                bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
-                renderingIntent: .defaultIntent)!
         }
         setUpBuffers()
         adjustBrightness(amount: 0.0)
@@ -59,15 +80,17 @@ class ColorDataModel{
     }
     
     func adjustCurrent(value: Float){
+        //print("Edit mode is \(editMode)")
         if editMode == ColorDataModel.EDIT_MODE_HUE{
             adjustHue(amount: value)
         }
         if editMode == ColorDataModel.EDIT_MODE_BRIGHTNESS{
-            adjustBrightness(amount: value)
+            adjustBrightness(amount: value * 6.0 - 3.0)
         }
         if editMode == ColorDataModel.EDIT_MODE_CONTRAST{
-            adjustContrast(amount: value)
+            adjustContrast(amount: value * 3.0)
         }
+        self.currentImage = readFromBuffers()
     }
     
     func adjustHue(amount: Float){
@@ -75,6 +98,21 @@ class ColorDataModel{
     }
     
     func adjustBrightness(amount: Float){
+        self.currentBrightness = amount
+        adjustBrightnessContrast(brightness: Float(self.currentBrightness), contrast: Float(self.currentContrast))
+    }
+    
+    func adjustContrast(amount: Float){
+        self.currentContrast = amount
+        adjustBrightnessContrast(brightness: self.currentBrightness, contrast: self.currentContrast)
+    }
+    
+    func adjustBrightnessContrast(brightness: Float, contrast: Float){
+        var planarSource = vImage_Buffer(
+            data: originalImageBuffer!.data,
+            height: originalImageBuffer!.height,
+            width: originalImageBuffer!.width * 3,
+            rowBytes: originalImageBuffer!.rowBytes)
         var planarDestination = vImage_Buffer(
             data: currentImageBuffer!.data,
             height: currentImageBuffer!.height,
@@ -82,21 +120,19 @@ class ColorDataModel{
             rowBytes: currentImageBuffer!.rowBytes)
         let preset = CurvePreset(
             label: "A1",
-            boundary: Pixel_8(1.0),
-            linearCoefficients: [3.0, -1.0],
+            boundary: 255,
+            linearCoefficients: [contrast, brightness],
             gamma: 0)
+        
         vImagePiecewiseGamma_Planar8(
-            &planarDestination,
+            &planarSource,
             &planarDestination,
             [0.0],
             preset.gamma,
             preset.linearCoefficients,
             preset.boundary,
             vImage_Flags(kvImageNoFlags))
-    }
-    
-    func adjustContrast(amount: Float){
-        
+        print(brightness, contrast)
     }
     
     func setUpBuffers(){
@@ -107,10 +143,18 @@ class ColorDataModel{
                 width: Int(originalImageBuffer!.width),
                 height: Int(originalImageBuffer!.height),
                 bitsPerPixel: format!.bitsPerPixel)
+            
+            vImageConvert_RGBA8888toRGB888(
+                &originalImageBuffer!,
+                &originalImageBuffer!,
+                vImage_Flags(kvImageNoFlags))
+            
             vImageConvert_RGBA8888toRGB888(
                 &originalImageBuffer!,
                 &currentImageBuffer!,
                 vImage_Flags(kvImageNoFlags))
+            
+            
         } catch {
             print("setUpBuffers error! ", error)
         }
@@ -120,7 +164,7 @@ class ColorDataModel{
         let CGIntermediary = try? currentImageBuffer?.createCGImage(format: format!)
         return UIImage(cgImage: CGIntermediary!)
     }
-    
+        
 }
 
 

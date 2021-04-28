@@ -25,14 +25,17 @@ class EditPhotoViewController: UIViewController {
     @IBAction func HueButtonPressed(_ sender: Any) {
         showSlider()
         EditLabel.text = "Hue"
+        theDataModel.editMode = ColorDataModel.EDIT_MODE_HUE
     }
     @IBAction func BrightnessButtonPressed(_ sender: Any) {
         showSlider()
         EditLabel.text = "Brightness"
+        theDataModel.editMode = ColorDataModel.EDIT_MODE_BRIGHTNESS
     }
     @IBAction func ContrastButtonPressed(_ sender: Any) {
         showSlider()
         EditLabel.text = "Contrast"
+        theDataModel.editMode = ColorDataModel.EDIT_MODE_CONTRAST
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
         let filename = "bingus"
@@ -47,6 +50,7 @@ class EditPhotoViewController: UIViewController {
     }
     @IBAction func SliderSlid(_ sender: Any) {
         theDataModel.adjustCurrent(value: Slider.value)
+        imageToEdit.image = theDataModel.getCurrent()
     }
     
     func buttonsAreHidden(hidden:Bool){
