@@ -9,7 +9,7 @@
 //
 // Alter Color
 //
-// Serena Press - sapress@iu.edu
+// Serena Press - sapress@iu.eduK
 // Sai Jannali - sjannali@iu.edu
 // Aidan Lesh - ailesh@iu.edu
 
