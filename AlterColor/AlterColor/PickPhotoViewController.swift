@@ -34,7 +34,7 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
 //        imagePicker.SourceType = camera
         
         imagePicker.sourceType = .photoLibrary
-        var state = 0 //0 for photo
+        self.state = 0 //0 for photo
                 
         present(imagePicker, animated: true, completion: nil)
     }
@@ -44,7 +44,7 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         picker.sourceType = .camera
         picker.allowsEditing = true
         picker.delegate = self
-        var state = 1 // 1 for camera
+        self.state = 1 // 1 for camera
         present(picker, animated: true)
     }
      

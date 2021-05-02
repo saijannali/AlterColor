@@ -52,6 +52,7 @@ class EditPhotoViewController: UIViewController {
         if let thetable = navigationController?.children[2]{
             navigationController?.show(thetable, sender: self)
         }
+        UIImageWriteToSavedPhotosAlbum(theDataModel.getCurrent()!, nil, nil, nil)
     }
     @IBAction func BackButtonPressed(_ sender: Any) {
         showButtons()
