@@ -9,7 +9,7 @@
 //
 // Alter Color
 //
-// Serena Press - sapress@iu.eduK
+// Serena Press - sapress@iu.edu
 // Sai Jannali - sjannali@iu.edu
 // Aidan Lesh - ailesh@iu.edu
 
@@ -120,7 +120,17 @@ class ColorDataModel{
     }
     
     func applyAdjustments(brightness: Float, contrast: Float){
+        var hue = 0.0
         // hue
+        // I'm not exactly sure how this works but I think it's formatting and remapping
+        let divisor : Int32 = 0x1000 //4096
+        let rawRotationMatrix : [Float] = [
+            Float(cos(hue)), Float(-sin(hue)),
+            Float(sin(hue)), Float(cos(hue))
+        ]
+        let rotationMatrix = rawRotationMatrix.map({return Int16($0 * Float(divisor))})
+        let preBias = [Int16](repeating: -128, count: 2)
+        let postBias : [Int32] = [Int32](repeating: 128 * divisor, count: 2)
         
         
         // brightness, contrast
