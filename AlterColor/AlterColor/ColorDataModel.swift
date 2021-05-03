@@ -47,6 +47,10 @@ class ColorDataModel{
         renderingIntent: .defaultIntent)!
     var originalImageBuffer : vImage_Buffer? = nil
     var currentImageBuffer : vImage_Buffer? = nil
+    var labImageBuffer : vImage_Buffer? = nil
+    var l_ImageBuffer : vImage_Buffer? = nil
+    var a_ImageBuffer : vImage_Buffer? = nil
+    var b_ImageBuffer : vImage_Buffer? = nil
     let RGBtoLab : vImageConverter
     let LabtoRGB : vImageConverter
     
@@ -107,15 +111,19 @@ class ColorDataModel{
     
     func adjustBrightness(amount: Float){
         self.currentBrightness = amount
-        adjustBrightnessContrast(brightness: Float(self.currentBrightness), contrast: Float(self.currentContrast))
+        applyAdjustments(brightness: Float(self.currentBrightness), contrast: Float(self.currentContrast))
     }
     
     func adjustContrast(amount: Float){
         self.currentContrast = amount
-        adjustBrightnessContrast(brightness: self.currentBrightness, contrast: self.currentContrast)
+        applyAdjustments(brightness: self.currentBrightness, contrast: self.currentContrast)
     }
     
-    func adjustBrightnessContrast(brightness: Float, contrast: Float){
+    func applyAdjustments(brightness: Float, contrast: Float){
+        // hue
+        
+        
+        // brightness, contrast
         var planarSource = vImage_Buffer(
             data: originalImageBuffer!.data,
             height: originalImageBuffer!.height,
@@ -151,6 +159,22 @@ class ColorDataModel{
                 width: Int(originalImageBuffer!.width),
                 height: Int(originalImageBuffer!.height),
                 bitsPerPixel: format!.bitsPerPixel)
+            try labImageBuffer = vImage_Buffer(
+                width: Int(originalImageBuffer!.width),
+                height: Int(originalImageBuffer!.height),
+                bitsPerPixel: labFormat!.bitsPerPixel)
+            try l_ImageBuffer = vImage_Buffer(
+                width: Int(originalImageBuffer!.width),
+                height: Int(originalImageBuffer!.height),
+                bitsPerPixel: labFormat!.bitsPerPixel)
+            try a_ImageBuffer = vImage_Buffer(
+                width: Int(originalImageBuffer!.width),
+                height: Int(originalImageBuffer!.height),
+                bitsPerPixel: labFormat!.bitsPerPixel)
+            try b_ImageBuffer = vImage_Buffer(
+                width: Int(originalImageBuffer!.width),
+                height: Int(originalImageBuffer!.height),
+                bitsPerPixel: labFormat!.bitsPerPixel)
             
             vImageConvert_RGBA8888toRGB888(
                 &originalImageBuffer!,
@@ -162,6 +186,16 @@ class ColorDataModel{
                 &currentImageBuffer!,
                 vImage_Flags(kvImageNoFlags))
             
+            try RGBtoLab.convert(
+                source: originalImageBuffer!,
+                destination: &labImageBuffer!)
+            
+            vImageConvert_RGB888toPlanar8(
+                &labImageBuffer!,
+                &l_ImageBuffer!,
+                &a_ImageBuffer!,
+                &b_ImageBuffer!,
+                vImage_Flags(kvImageNoFlags))
             
         } catch {
             print("setUpBuffers error! ", error)
