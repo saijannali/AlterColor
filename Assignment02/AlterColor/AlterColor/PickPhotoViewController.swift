@@ -18,14 +18,12 @@ import UIKit
 class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var appDelegate: AppDelegate!
     var theDataModel:ColorDataModel!
-    var state = -1
 
     @IBOutlet weak var imageView: UIImageView!
     let imagePicker = UIImagePickerController()
 
     
     @IBOutlet weak var pickPhotoButton: UIButton!
-    @IBOutlet weak var pickCameraButton: UIButton!
     
     @IBAction func pickPhotoButtonTapped(_ sender: Any) {
         
@@ -34,58 +32,27 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
 //        imagePicker.SourceType = camera
         
         imagePicker.sourceType = .photoLibrary
-        self.state = 0 //0 for photo
                 
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func cameraButtonTapped(){
-        let picker =  UIImagePickerController()
-        picker.sourceType = .camera
-        picker.allowsEditing = true
-        picker.delegate = self
-        self.state = 1 // 1 for camera
-        present(picker, animated: true)
-    }
-     
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // camera
-        if self.state == 1{
-            picker.dismiss(animated: true, completion: nil)
-        }
-        //photo library
-        else{
-            dismiss(animated: true, completion: nil)
-        }
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: - UIImagePickerControllerDelegate Methods
 
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // if camera chosen
-        if self.state == 1{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-            picker.dismiss(animated: true, completion: nil)
         
-            guard let image = info[UIImagePickerController.InfoKey.editedImage] as?
-                    UIImage else {
-                    return
-            }
-        
-            imageView.image = image
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageView.contentMode = .scaleAspectFill
+            imageView.image = pickedImage
+            self.theDataModel.loadImage(image: pickedImage)
         }
-        // if photo library was chosen
-        else{
-            if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                imageView.contentMode = .scaleAspectFill
-                imageView.image = pickedImage
-                self.theDataModel.loadImage(image: pickedImage)
-            }
 
-            dismiss(animated: true, completion: nil)
-        }
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -110,5 +77,3 @@ class PickPhotoViewController: UIViewController, UIImagePickerControllerDelegate
     */
 
 }
-
-

@@ -129,14 +129,6 @@
                                     <constraint firstAttribute="height" constant="240" id="EbK-dO-iPV"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7EA-M4-15s">
-                                <rect key="frame" x="128" y="437" width="119" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Choose Camera"/>
-                                <connections>
-                                    <action selector="cameraButtonTapped" destination="m6h-3j-LCq" eventType="touchUpInside" id="iY5-Ni-o77"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oWl-Am-KYq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -154,7 +146,6 @@
                     <tabBarItem key="tabBarItem" title="choose photo" image="photo.on.rectangle" catalog="system" id="cyz-TH-1su"/>
                     <connections>
                         <outlet property="imageView" destination="ekt-dv-xXF" id="43O-Af-dbu"/>
-                        <outlet property="pickCameraButton" destination="7EA-M4-15s" id="6TU-E5-40y"/>
                         <outlet property="pickPhotoButton" destination="eJc-c7-z0x" id="Eew-Qn-g2y"/>
                     </connections>
                 </viewController>
