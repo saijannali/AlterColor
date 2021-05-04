@@ -1,0 +1,14 @@
+Eval - Team 22
+
+Serena Press - sapress@iu.edu
+Sai Jannali - sjannali@iu.edu
+Aidan Lesh - ailesh@iu.edu
+
+Image Picker (camera roll) - Serena
+Image picker (camera) - Sai
+Image editing - Aidan
+Table view of all photos - Group in meeting
+Persistent storage/ core data - Sai
+Editing Image Controller UI - Aidan
+Image Picker Controller UI - Serena
+
