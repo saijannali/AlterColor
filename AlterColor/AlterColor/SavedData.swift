@@ -24,23 +24,49 @@ class SavedData {
         self.images = data
     }
     
-    func save(img:UIImage, file:String, when:String){
-        images.append(savedImage(theImage: img, theFilename: file, theDate: when))
+    func save(file:String, when:String, path:String){
+        images.append(savedImage(theFilename: file, theDate: when,thePath: path))
     }
     
 }
 
-class savedImage{
+class savedImage: NSObject, Codable{
     
-    var image: UIImage
+    //var image: UIImage
     var filename : String
     var dateModified : String
+    var imagePath: String
     
-    init(theImage:UIImage, theFilename:String, theDate: String){
-        self.image = theImage
+    init(/*theImage:UIImage*/ theFilename:String, theDate: String, thePath: String){
         self.filename = theFilename
         self.dateModified = theDate
+        self.imagePath = thePath
     }
     
 }
+
+/*class FilePath{
+    var paths : [ImagePath]
+    
+    init(data: [ImagePath]){
+        self.paths = data
+    }
+    
+    func save(name: String, date: String, path: String){
+        paths.append(ImagePath(theFilename: name, theDate: date, thePath: path))
+    }
+}
+
+class ImagePath{
+    
+    var filename : String
+    var dateModified : String
+    var filePath : String
+    
+    init(theFilename:String, theDate: String, thePath: String){
+        self.filename = theFilename
+        self.dateModified = theDate
+        self.filePath = thePath
+    }
+}*/
 

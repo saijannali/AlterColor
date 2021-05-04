@@ -15,10 +15,11 @@
 
 import UIKit
 
-class EditPhotoViewController: UIViewController {
+class EditPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var appDelegate: AppDelegate!
     var theDataModel:ColorDataModel!
     var theSavedData:SavedData!
+    //var theFilePath: FilePath!
     
     @IBOutlet weak var HueButton: UIButton!
     @IBOutlet weak var BrightnessButton: UIButton!
@@ -46,13 +47,20 @@ class EditPhotoViewController: UIViewController {
         theDataModel.editMode = ColorDataModel.EDIT_MODE_CONTRAST
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
-        let filename = "bingus"
+        let filename = "\(Date().timeIntervalSinceReferenceDate)"
         let date = "march 10"
-        theSavedData.save(img:theDataModel.getCurrent()!, file:filename, when:date)
+        let pathGenerated = generatePath(fileName: filename, Date: date)
+  
+        
+        // for our use
+        theSavedData.save(file: filename, when: date, path: pathGenerated)
+        //for storing use
+        //theFilePath.save(name: filename, date: date, path: pathGenerated)
+        appDelegate.write_plist()
         if let thetable = navigationController?.children[2]{
             navigationController?.show(thetable, sender: self)
         }
-        UIImageWriteToSavedPhotosAlbum(theDataModel.getCurrent()!, nil, nil, nil)
+
     }
     @IBAction func BackButtonPressed(_ sender: Any) {
         showButtons()
@@ -61,6 +69,28 @@ class EditPhotoViewController: UIViewController {
         theDataModel.adjustCurrent(value: Slider.value)
         imageToEdit.image = theDataModel.getCurrent()
     }
+    func generatePath(fileName: String, Date: String) -> String{
+        // create insatnce
+        let fileManager = FileManager.default
+        
+        //get the image path
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(fileName)
+        
+        //get image
+        let image = theDataModel.getCurrent()!
+        
+        //get png data
+        let data = image.pngData()
+        
+        //store in doc directory
+        fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+        print(imagePath)
+        
+        
+        return  imagePath
+    }
+    
+    
     
     func buttonsAreHidden(hidden:Bool){
         HueButton.isHidden = hidden
@@ -90,14 +120,19 @@ class EditPhotoViewController: UIViewController {
         showButtons()
         self.appDelegate = UIApplication.shared.delegate as? AppDelegate
         self.theDataModel = self.appDelegate.allData
-        self.theSavedData = self.appDelegate.savedData
+        self.theSavedData = self.appDelegate.mySavedData
         
         print("\(self.theDataModel.originalImage)")
         imageToEdit.image = theDataModel.getCurrent()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         imageToEdit.image = theDataModel.getCurrent()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : AnyObject]) {
+        
     }
     
 

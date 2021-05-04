@@ -4,7 +4,6 @@
 //
 //  Created by Sai Jannali on 4/19/21.
 //
-
 // Assignment 02 4/27/2021
 //
 // Alter Color
@@ -12,7 +11,6 @@
 // Serena Press - sapress@iu.edu
 // Sai Jannali - sjannali@iu.edu
 // Aidan Lesh - ailesh@iu.edu
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -53,7 +51,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }

@@ -27,7 +27,7 @@ class ViewAllTableViewController: UITableViewController {
         
         self.appDelegate = UIApplication.shared.delegate as? AppDelegate
         self.theDataModel = self.appDelegate.allData
-        self.theSavedData = self.appDelegate.savedData
+        self.theSavedData = self.appDelegate.mySavedData
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -51,11 +51,20 @@ class ViewAllTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mycell", for: indexPath) as! ViewAllTableViewCell
-
+        
+        //get image
+        let fileManager = FileManager.default
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(theSavedData.images[indexPath.row].filename)
+        
+        if fileManager.fileExists(atPath: imagePath){
+           cell.thumbnail.image = UIImage(contentsOfFile: imagePath)
+        }else{
+           print("Panic! No Image!")
+           }
         let row = indexPath.row
         // Configure the cell...
-        cell.backgroundColor = UIColor.green
-        cell.thumbnail.image = theSavedData.images[row].image
+        cell.backgroundColor = UIColor.white
+        //cell.thumbnail.image = theSavedData.images[row].image
         cell.filenameLabel.text = theSavedData.images[row].filename
         cell.dateModifiedLabel.text = theSavedData.images[row].dateModified
         self.tableView.rowHeight = 167.0
