@@ -35,18 +35,24 @@ class EditPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         showSlider()
         EditLabel.text = "Hue"
         theDataModel.editMode = ColorDataModel.EDIT_MODE_HUE
+        Slider.value = theDataModel.hueSlider
     }
     @IBAction func BrightnessButtonPressed(_ sender: Any) {
         showSlider()
         EditLabel.text = "Brightness"
         theDataModel.editMode = ColorDataModel.EDIT_MODE_BRIGHTNESS
+        Slider.value = theDataModel.brightnessSlider
     }
     @IBAction func ContrastButtonPressed(_ sender: Any) {
         showSlider()
         EditLabel.text = "Contrast"
         theDataModel.editMode = ColorDataModel.EDIT_MODE_CONTRAST
+        Slider.value = theDataModel.contrastSlider
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
+        if theDataModel.originalImage == nil{
+            return
+        }
         let filename = "\(Date().timeIntervalSinceReferenceDate)"
         let date = "march 10"
         let pathGenerated = generatePath(fileName: filename, Date: date)
@@ -66,9 +72,13 @@ class EditPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         showButtons()
     }
     @IBAction func SliderSlid(_ sender: Any) {
+        if theDataModel.originalImage == nil{
+            return
+        }
         theDataModel.adjustCurrent(value: Slider.value)
         imageToEdit.image = theDataModel.getCurrent()
     }
+    
     func generatePath(fileName: String, Date: String) -> String{
         // create insatnce
         let fileManager = FileManager.default
