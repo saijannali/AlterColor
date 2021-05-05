@@ -56,7 +56,10 @@ class ColorDataModel{
     
     var currentBrightness : Float = 0.0
     var currentContrast : Float = 1.0
-    var currentHue = 0.0
+    var currentHue : Float = 0.0
+    var brightnessSlider : Float = 0.5
+    var contrastSlider : Float = 0.5
+    var hueSlider : Float = 0.0
     
     //var imageFormat = vImage_CGImageFormat(
     
@@ -83,7 +86,13 @@ class ColorDataModel{
             //self.format = vImage_CGImageFormat(cgImage: self.originalCG!)
         }
         setUpBuffers()
-        adjustBrightness(amount: 0.0)
+        brightnessSlider = 0.5
+        contrastSlider = 0.5
+        hueSlider = 0.0
+        currentBrightness = 0.0
+        currentContrast = 1.0
+        currentHue = 0.0
+        adjustBrightness(amount: 0.0) //this line is actually vital
         self.currentImage = readFromBuffers()
     }
     
@@ -94,34 +103,50 @@ class ColorDataModel{
     func adjustCurrent(value: Float){
         //print("Edit mode is \(editMode)")
         if editMode == ColorDataModel.EDIT_MODE_HUE{
-            adjustHue(amount: value)
+            hueSlider = value
+            adjustHue(amount: value * 2 * Float.pi)
         }
         if editMode == ColorDataModel.EDIT_MODE_BRIGHTNESS{
+            brightnessSlider = value
             adjustBrightness(amount: value * 6.0 - 3.0)
         }
         if editMode == ColorDataModel.EDIT_MODE_CONTRAST{
+            contrastSlider = value
             adjustContrast(amount: value * 3.0)
         }
         self.currentImage = readFromBuffers()
     }
     
     func adjustHue(amount: Float){
-        
+        self.currentHue = amount
+        applyAdjustments(hue: Float(self.currentHue), brightness: Float(self.currentBrightness), contrast: Float(self.currentContrast))
     }
     
     func adjustBrightness(amount: Float){
         self.currentBrightness = amount
-        applyAdjustments(brightness: Float(self.currentBrightness), contrast: Float(self.currentContrast))
+        applyAdjustments(hue: Float(self.currentHue), brightness: Float(self.currentBrightness), contrast: Float(self.currentContrast))
     }
     
     func adjustContrast(amount: Float){
         self.currentContrast = amount
-        applyAdjustments(brightness: self.currentBrightness, contrast: self.currentContrast)
+        applyAdjustments(hue: Float(self.currentHue), brightness: self.currentBrightness, contrast: self.currentContrast)
     }
     
-    func applyAdjustments(brightness: Float, contrast: Float){
-        var hue = 0.0
+    func applyAdjustments(hue: Float, brightness: Float, contrast: Float){
         // hue
+        do {
+            try RGBtoLab.convert(
+                source: originalImageBuffer!,
+                destination: &labImageBuffer!)
+            vImageConvert_RGB888toPlanar8(
+                &labImageBuffer!,
+                &l_ImageBuffer!,
+                &a_ImageBuffer!,
+                &b_ImageBuffer!,
+                vImage_Flags(kvImageNoFlags))
+        }catch{
+            fatalError("Oh no! Error in hue adjusment setup")
+        }
         // I'm not exactly sure how this works but I think it's formatting and remapping
         let divisor : Int32 = 0x1000 //4096
         let rawRotationMatrix : [Float] = [
@@ -131,7 +156,31 @@ class ColorDataModel{
         let rotationMatrix = rawRotationMatrix.map({return Int16($0 * Float(divisor))})
         let preBias = [Int16](repeating: -128, count: 2)
         let postBias : [Int32] = [Int32](repeating: 128 * divisor, count: 2)
-        
+        [b_ImageBuffer!, a_ImageBuffer!].withUnsafeBufferPointer{ bufferPointer in
+            var src: [UnsafePointer<vImage_Buffer>?] = (0...1).map{bufferPointer.baseAddress! + $0}
+            var dst: [UnsafePointer<vImage_Buffer>?] = (0...1).map{bufferPointer.baseAddress! + $0}
+            vImageMatrixMultiply_Planar8(
+                &src,
+                &dst,
+                2,
+                2,
+                rotationMatrix,
+                divisor,
+                preBias,
+                postBias,
+                0)
+        }
+        vImageConvert_Planar8toRGB888(
+            &l_ImageBuffer!,
+            &a_ImageBuffer!,
+            &b_ImageBuffer!,
+            &labImageBuffer!,
+            vImage_Flags(kvImageNoFlags))
+        do{
+            try LabtoRGB.convert(source: labImageBuffer!, destination: &currentImageBuffer!)
+        }catch{
+            print("LabtoRGB conversion error! " + error.localizedDescription)
+        }
         
         // brightness, contrast
         var planarSource = vImage_Buffer(
@@ -151,7 +200,7 @@ class ColorDataModel{
             gamma: 0)
         
         vImagePiecewiseGamma_Planar8(
-            &planarSource,
+            &planarDestination,  // this isn't &planarsource because we're continuing from the hue, so it needs to be in-place in order to keep hue changes
             &planarDestination,
             [0.0],
             preset.gamma,
